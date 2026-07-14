@@ -1,0 +1,15 @@
+# Maven build çıktısı
+target/
+
+
+.idea/
+*.iml
+*.iws
+*.ipr
+
+
+Thumbs.db
+.DS_Store
+
+
+*.log

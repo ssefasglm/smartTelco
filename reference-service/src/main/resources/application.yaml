@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: reference-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/referencedb
+    username: reference
+    password: reference123
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+server:
+  port: 8081

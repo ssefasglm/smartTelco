@@ -1,0 +1,15 @@
+services:
+  reference-postgres:
+    image: postgres:14
+    container_name: reference-postgres
+    environment:
+      POSTGRES_DB: referencedb
+      POSTGRES_USER: reference
+      POSTGRES_PASSWORD: reference123
+    ports:
+      - "5432:5432"
+    volumes:
+      - reference_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  reference_postgres_data:
