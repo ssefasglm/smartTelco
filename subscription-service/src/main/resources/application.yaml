@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: subscription-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/smarttelco
+
+server:
+  port: 8082
