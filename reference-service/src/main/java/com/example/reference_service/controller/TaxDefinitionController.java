@@ -21,4 +21,9 @@ public class TaxDefinitionController {
     public List<TaxDefinition> getAllTaxDefinitions() {
         return service.getAllTaxDefinitions();
     }
+
+    @GetMapping("/current")
+    public TaxDefinition getCurrentTax() {
+        return service.getCurrentTax();
+    }
 }

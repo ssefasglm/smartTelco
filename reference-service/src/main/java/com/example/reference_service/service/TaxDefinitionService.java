@@ -15,4 +15,8 @@ public class TaxDefinitionService {
     public List<TaxDefinition> getAllTaxDefinitions() {
         return repository.findAll();
     }
+    public TaxDefinition getCurrentTax() {
+        return repository.findFirstByActiveTrue()
+                .orElseThrow(() -> new RuntimeException("No active tax definition found"));
+    }
 }

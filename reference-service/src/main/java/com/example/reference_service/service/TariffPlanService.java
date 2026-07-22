@@ -18,4 +18,8 @@ public class TariffPlanService {
     public List<TariffPlan> getAllPlans() {
         return repository.findAll();
     }
+    public TariffPlan getPlanByCode(String code) {
+        return repository.findByCode(code)
+                .orElseThrow(() -> new RuntimeException("Plan not found: " + code));
+    }
 }

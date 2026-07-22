@@ -3,6 +3,7 @@ package com.example.reference_service.controller;
 import com.example.reference_service.entity.TariffPlan;
 import com.example.reference_service.service.TariffPlanService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
@@ -20,5 +21,10 @@ public class TariffPlanController {
     @GetMapping
     public List<TariffPlan> getAllPlans() {
         return service.getAllPlans();
+    }
+
+    @GetMapping("/{planCode}")
+    public TariffPlan getPlanByCode(@PathVariable String planCode) {
+        return service.getPlanByCode(planCode);
     }
 }

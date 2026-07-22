@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface TaxDefinitionRepository extends JpaRepository<TaxDefinition, Long> {
 
-    Optional<TaxDefinition> findByCode(String code);}
+    Optional<TaxDefinition> findByCode(String code);
+    Optional<TaxDefinition> findFirstByActiveTrue();
+}
