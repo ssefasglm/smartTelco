@@ -3,6 +3,7 @@ package com.example.subscription_service.client;
 import com.example.subscription_service.dto.PlanResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import com.example.subscription_service.dto.TaxResponse;
 
 @Component
 public class ReferenceServiceClient {
@@ -18,5 +19,11 @@ public class ReferenceServiceClient {
                 .uri("/api/v1/plans/{planCode}", planCode)
                 .retrieve()
                 .body(PlanResponse.class);
+    }
+    public TaxResponse getCurrentTax() {
+        return referenceRestClient.get()
+                .uri("/api/v1/taxes/current")
+                .retrieve()
+                .body(TaxResponse.class);
     }
 }
