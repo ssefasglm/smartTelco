@@ -76,7 +76,7 @@ public class QuoteService {
         quote.setAppliedCampaignCode(discountDecision.appliedCampaignCode());
         quote.setDiscountAmount(discountAmount);
         quote.setSubtotal(subtotal);
-
+        quote.setEligibilityResults(discountDecision.evaluations());
         quote.setTaxRate(taxRate);
         quote.setTaxAmount(taxAmount);
         quote.setTotalAmount(totalAmount);
@@ -106,7 +106,8 @@ public class QuoteService {
                 quote.getTaxAmount(),
                 quote.getTotalAmount(),
                 quote.getStatus(),
-                quote.getExpiresAt()
+                quote.getExpiresAt(),
+                quote.getEligibilityResults()
         );
     }
 }

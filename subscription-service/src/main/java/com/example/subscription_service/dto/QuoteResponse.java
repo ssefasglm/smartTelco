@@ -1,9 +1,10 @@
 package com.example.subscription_service.dto;
 
 import com.example.subscription_service.enums.QuoteStatus;
-
+import com.example.subscription_service.dto.CampaignEligibilityResult;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 public record QuoteResponse(
         String quoteId,
@@ -18,5 +19,6 @@ public record QuoteResponse(
         BigDecimal taxAmount,
         BigDecimal totalAmount,
         QuoteStatus status,
-        Instant expiresAt
+        Instant expiresAt,
+        List<CampaignEligibilityResult> eligibilityResults
 ) { }

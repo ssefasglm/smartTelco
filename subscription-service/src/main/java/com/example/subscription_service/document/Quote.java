@@ -1,11 +1,13 @@
 package com.example.subscription_service.document;
 
+import com.example.subscription_service.dto.CampaignEligibilityResult;
 import com.example.subscription_service.enums.QuoteStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 @Document(collection = "quote")
 public class Quote {
@@ -23,6 +25,7 @@ public class Quote {
     private String appliedCampaignCode;
     private BigDecimal discountAmount;
     private BigDecimal subtotal;
+    private List<CampaignEligibilityResult> eligibilityResults;
 
     private BigDecimal taxRate;
     private BigDecimal taxAmount;
@@ -102,6 +105,14 @@ public class Quote {
 
     public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public List<CampaignEligibilityResult> getEligibilityResults() {
+        return eligibilityResults;
+    }
+
+    public void setEligibilityResults(List<CampaignEligibilityResult> eligibilityResults) {
+        this.eligibilityResults = eligibilityResults;
     }
 
     public BigDecimal getTaxRate() {
