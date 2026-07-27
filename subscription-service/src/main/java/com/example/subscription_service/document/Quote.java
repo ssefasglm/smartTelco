@@ -20,6 +20,10 @@ public class Quote {
     private String planName;
     private BigDecimal baseAmount;
 
+    private String appliedCampaignCode;
+    private BigDecimal discountAmount;
+    private BigDecimal subtotal;
+
     private BigDecimal taxRate;
     private BigDecimal taxAmount;
     private BigDecimal totalAmount;
@@ -74,6 +78,30 @@ public class Quote {
 
     public void setBaseAmount(BigDecimal baseAmount) {
         this.baseAmount = baseAmount;
+    }
+
+    public String getAppliedCampaignCode() {
+        return appliedCampaignCode;
+    }
+
+    public void setAppliedCampaignCode(String appliedCampaignCode) {
+        this.appliedCampaignCode = appliedCampaignCode;
+    }
+
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(BigDecimal discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public BigDecimal getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
     }
 
     public BigDecimal getTaxRate() {

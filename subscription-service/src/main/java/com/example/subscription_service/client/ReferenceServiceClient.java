@@ -1,11 +1,8 @@
 package com.example.subscription_service.client;
 
-import com.example.subscription_service.dto.PlanResponse;
+import com.example.subscription_service.dto.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
-import com.example.subscription_service.dto.TaxResponse;
-import com.example.subscription_service.dto.CampaignResponse;
-import com.example.subscription_service.dto.CampaignRuleResponse;
 import org.springframework.core.ParameterizedTypeReference;
 import java.util.List;
 
@@ -24,11 +21,11 @@ public class ReferenceServiceClient {
                 .retrieve()
                 .body(PlanResponse.class);
     }
-    public List<CampaignResponse> getCampaignsByPlanId(Long planId) {
+    public List<PlanCampaignResponse> getPlanCampaignsByPlanId(Long planId) {
         return referenceRestClient.get()
                 .uri("/api/v1/plans/{planId}/campaigns", planId)
                 .retrieve()
-                .body(new ParameterizedTypeReference<List<CampaignResponse>>() {});
+                .body(new ParameterizedTypeReference<List<PlanCampaignResponse>>() {});
     }
 
     public List<CampaignRuleResponse> getRulesByCampaignId(Long campaignId) {
@@ -36,6 +33,12 @@ public class ReferenceServiceClient {
                 .uri("/api/v1/campaigns/{campaignId}/rules", campaignId)
                 .retrieve()
                 .body(new ParameterizedTypeReference<List<CampaignRuleResponse>>() {});
+    }
+    public CampaignResponse getCampaignById(Long campaignId) {
+        return referenceRestClient.get()
+                .uri("/api/v1/campaigns/{campaignId}", campaignId)
+                .retrieve()
+                .body(CampaignResponse.class);
     }
     public TaxResponse getCurrentTax() {
         return referenceRestClient.get()
