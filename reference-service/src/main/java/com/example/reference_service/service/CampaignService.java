@@ -17,4 +17,8 @@ public class CampaignService {
     public List<Campaign> getAllCampaigns() {
         return repository.findAll();
     }
+    public Campaign getCampaignById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Campaign not found: " + id));
+    }
 }
