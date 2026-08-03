@@ -4,6 +4,7 @@ import com.example.subscription_service.dto.CreateSubscriptionRequest;
 import com.example.subscription_service.dto.SubscriptionResponse;
 import com.example.subscription_service.service.SubscriptionService;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/subscriptions")
@@ -16,7 +17,7 @@ public class SubscriptionController {
     }
 
     @PostMapping
-    public SubscriptionResponse createSubscription(@RequestBody CreateSubscriptionRequest request) {
+    public SubscriptionResponse createSubscription(@Valid @RequestBody CreateSubscriptionRequest request) {
         return service.createSubscription(request.customerId(), request.quoteId());
     }
 }
