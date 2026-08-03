@@ -93,6 +93,12 @@ public class QuoteService {
         return toResponse(saved);
     }
 
+    public QuoteResponse getByQuoteId(String quoteId) {
+        Quote quote = quoteRepository.findByQuoteId(quoteId)
+                .orElseThrow(() -> new NotFoundException("Quote not found: " + quoteId));
+        return toResponse(quote);
+    }
+
     private QuoteResponse toResponse(Quote quote) {
         return new QuoteResponse(
                 quote.getQuoteId(),

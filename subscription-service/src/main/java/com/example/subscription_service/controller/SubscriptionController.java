@@ -20,4 +20,9 @@ public class SubscriptionController {
     public SubscriptionResponse createSubscription(@Valid @RequestBody CreateSubscriptionRequest request) {
         return service.createSubscription(request.customerId(), request.quoteId());
     }
+
+    @GetMapping("/{subscriptionId}")
+    public SubscriptionResponse getSubscription(@PathVariable String subscriptionId) {
+        return service.getBySubscriptionId(subscriptionId);
+    }
 }

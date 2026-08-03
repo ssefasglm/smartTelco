@@ -20,4 +20,9 @@ public class QuoteController {
     public QuoteResponse createQuote(@Valid @RequestBody CreateQuoteRequest request) {
         return service.createQuote(request.customerId(), request.planCode());
     }
+
+    @GetMapping("/{quoteId}")
+    public QuoteResponse getQuote(@PathVariable String quoteId) {
+        return service.getByQuoteId(quoteId);
+    }
 }

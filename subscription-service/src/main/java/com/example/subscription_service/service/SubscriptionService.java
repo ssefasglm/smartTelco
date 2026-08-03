@@ -76,6 +76,12 @@ public class SubscriptionService {
         return toResponse(saved);
     }
 
+    public SubscriptionResponse getBySubscriptionId(String subscriptionId) {
+        Subscription subscription = subscriptionRepository.findBySubscriptionId(subscriptionId)
+                .orElseThrow(() -> new NotFoundException("Subscription not found: " + subscriptionId));
+        return toResponse(subscription);
+    }
+
     private SubscriptionResponse toResponse(Subscription s) {
         return new SubscriptionResponse(
                 s.getSubscriptionId(),
