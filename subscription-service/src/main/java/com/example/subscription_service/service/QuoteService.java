@@ -11,6 +11,7 @@ import com.example.subscription_service.enums.QuoteStatus;
 import com.example.subscription_service.repository.CustomerProfileRepository;
 import com.example.subscription_service.repository.QuoteRepository;
 import org.springframework.stereotype.Service;
+import com.example.subscription_service.exception.NotFoundException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -38,7 +39,7 @@ public class QuoteService {
     public QuoteResponse createQuote(String customerId, String planCode) {
         // 1. Müşteri gerçekten var mı?
         CustomerProfile customer = customerRepository.findByCustomerId(customerId)
-                .orElseThrow(() -> new RuntimeException("Customer not found: " + customerId));
+                .orElseThrow(() -> new NotFoundException("Customer not found: " + customerId));
 
         // 2. Tarife ve vergiyi reference'tan çek
         PlanResponse plan = referenceServiceClient.getPlanByCode(planCode);

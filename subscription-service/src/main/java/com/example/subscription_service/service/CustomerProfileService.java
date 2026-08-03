@@ -5,6 +5,7 @@ import com.example.subscription_service.dto.CreateCustomerRequest;
 import com.example.subscription_service.dto.CustomerResponse;
 import com.example.subscription_service.repository.CustomerProfileRepository;
 import org.springframework.stereotype.Service;
+import com.example.subscription_service.exception.NotFoundException;
 
 @Service
 public class CustomerProfileService {
@@ -33,7 +34,7 @@ public class CustomerProfileService {
 
     public CustomerResponse getByCustomerId(String customerId) {
         CustomerProfile profile = repository.findByCustomerId(customerId)
-                .orElseThrow(() -> new RuntimeException("Customer not found: " + customerId));
+                .orElseThrow(() -> new NotFoundException("Customer not found: " + customerId));
 
         return toResponse(profile);
     }
