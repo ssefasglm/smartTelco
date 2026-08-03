@@ -6,6 +6,7 @@ import com.example.subscription_service.dto.CustomerResponse;
 import com.example.subscription_service.repository.CustomerProfileRepository;
 import org.springframework.stereotype.Service;
 import com.example.subscription_service.exception.NotFoundException;
+import com.example.subscription_service.exception.ConflictException;
 
 @Service
 public class CustomerProfileService {
@@ -17,6 +18,9 @@ public class CustomerProfileService {
     }
 
     public CustomerResponse createCustomer(CreateCustomerRequest request) {
+        if (repository.findByCustomerId(request.customerId()).isPresent()) {
+            throw new ConflictException("Customer already exists: " + request.customerId());
+        }
         CustomerProfile profile = new CustomerProfile();
         profile.setCustomerId(request.customerId());
         profile.setAge(request.age());

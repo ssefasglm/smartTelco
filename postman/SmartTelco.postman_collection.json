@@ -1,0 +1,259 @@
+{
+  "info": {
+    "_postman_id": "7003e1c1-14d2-4a4c-95ed-293972548578",
+    "name": "SmartTelco",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57093865",
+    "_collection_link": "https://go.postman.co/collection/57093865-7003e1c1-14d2-4a4c-95ed-293972548578?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Müşteri oluştur",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"customerId\": \"C-1001\",\r\n  \"age\": 23,\r\n  \"segment\": \"YOUTH\",\r\n  \"tenureMonths\": 14,\r\n  \"currentPlanCode\": \"PLAN_BASIC_10\",\r\n  \"averageDataUsageGb\": 22,\r\n  \"monthlyBudget\": 500.00,\r\n  \"commitmentEndDate\": null\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/customers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "customers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Müşteri getir",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/customers/C-1001",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "customers",
+            "C-1001"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teklif oluştur",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"customerId\": \"C-1001\",\r\n  \"planCode\": \"PLAN_YOUTH_25\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/quotes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "quotes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teklif getir",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/quotes/{quoteId}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "quotes",
+            "{quoteId}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Abone Ol",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"customerId\": \"C-1001\",\r\n  \"quoteId\": \"BURAYA_QUOTE_ID\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/subscriptions",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "subscriptions"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Müşterinin Aboneliklerini Listele",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/subscriptions?customerId=C-1001",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "subscriptions"
+          ],
+          "query": [
+            {
+              "key": "customerId",
+              "value": "C-1001"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Abonelik getir",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/subscriptions/{subscriptionId}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "subscriptions",
+            "{subscriptionId}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Abonelik iptal",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/subscriptions/{subscriptionId}/cancel",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "subscriptions",
+            "{subscriptionId}",
+            "cancel"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Tarifeler (reference)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/api/v1/plans",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "api",
+            "v1",
+            "plans"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Kampanyalar (reference)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/api/v1/campaigns",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "api",
+            "v1",
+            "campaigns"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

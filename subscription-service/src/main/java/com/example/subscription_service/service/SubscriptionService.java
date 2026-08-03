@@ -49,12 +49,10 @@ public class SubscriptionService {
         }
 
         // 5. Müşterinin zaten aktif aboneliği var mı? (tek aktif abonelik kuralı)
-        subscriptionRepository.findByCustomerIdAndStatus(customerId, SubscriptionStatus.ACTIVE)
-                .ifPresent(existing -> {
-                    throw new ConflictException(
-                            "Customer " + customerId + " already has an active subscription: "
-                                    + existing.getSubscriptionId());
-                });
+        if (subscriptionRepository.existsByCustomerIdAndStatus(customerId, SubscriptionStatus.ACTIVE)) {
+            throw new ConflictException(
+                    "Customer " + customerId + " already has an active subscription");
+        }
 
         // Tüm kontroller geçti -> aboneliği oluştur (fiyatı tekliften kopyala = snapshot)
         Subscription subscription = new Subscription();
@@ -102,6 +100,13 @@ public class SubscriptionService {
         Subscription saved = subscriptionRepository.save(subscription);
 
         return toResponse(saved);
+    }
+
+    public java.util.List<SubscriptionResponse> getByCustomerId(String customerId) {
+        return subscriptionRepository.findByCustomerId(customerId)
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     private SubscriptionResponse toResponse(Subscription s) {

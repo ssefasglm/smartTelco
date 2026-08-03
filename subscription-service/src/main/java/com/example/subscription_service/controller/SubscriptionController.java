@@ -26,6 +26,12 @@ public class SubscriptionController {
         return service.getBySubscriptionId(subscriptionId);
     }
 
+    @GetMapping
+    public java.util.List<SubscriptionResponse> getSubscriptionsByCustomer(
+            @RequestParam String customerId) {
+        return service.getByCustomerId(customerId);
+    }
+
     @PostMapping("/{subscriptionId}/cancel")
     public SubscriptionResponse cancelSubscription(@PathVariable String subscriptionId) {
         return service.cancelSubscription(subscriptionId);
