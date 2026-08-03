@@ -48,6 +48,14 @@ public class SubscriptionService {
             throw new ConflictException("Quote " + quoteId + " has expired");
         }
 
+        // 5. Müşterinin zaten aktif aboneliği var mı? (tek aktif abonelik kuralı)
+        subscriptionRepository.findByCustomerIdAndStatus(customerId, SubscriptionStatus.ACTIVE)
+                .ifPresent(existing -> {
+                    throw new ConflictException(
+                            "Customer " + customerId + " already has an active subscription: "
+                                    + existing.getSubscriptionId());
+                });
+
         // Tüm kontroller geçti -> aboneliği oluştur (fiyatı tekliften kopyala = snapshot)
         Subscription subscription = new Subscription();
         subscription.setSubscriptionId("S-" + UUID.randomUUID().toString().substring(0, 8));
@@ -80,6 +88,20 @@ public class SubscriptionService {
         Subscription subscription = subscriptionRepository.findBySubscriptionId(subscriptionId)
                 .orElseThrow(() -> new NotFoundException("Subscription not found: " + subscriptionId));
         return toResponse(subscription);
+    }
+
+    public SubscriptionResponse cancelSubscription(String subscriptionId) {
+        Subscription subscription = subscriptionRepository.findBySubscriptionId(subscriptionId)
+                .orElseThrow(() -> new NotFoundException("Subscription not found: " + subscriptionId));
+
+        if (subscription.getStatus() == SubscriptionStatus.CANCELLED) {
+            throw new ConflictException("Subscription " + subscriptionId + " is already cancelled");
+        }
+
+        subscription.setStatus(SubscriptionStatus.CANCELLED);
+        Subscription saved = subscriptionRepository.save(subscription);
+
+        return toResponse(saved);
     }
 
     private SubscriptionResponse toResponse(Subscription s) {

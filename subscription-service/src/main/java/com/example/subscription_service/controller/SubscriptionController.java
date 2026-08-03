@@ -25,4 +25,9 @@ public class SubscriptionController {
     public SubscriptionResponse getSubscription(@PathVariable String subscriptionId) {
         return service.getBySubscriptionId(subscriptionId);
     }
+
+    @PostMapping("/{subscriptionId}/cancel")
+    public SubscriptionResponse cancelSubscription(@PathVariable String subscriptionId) {
+        return service.cancelSubscription(subscriptionId);
+    }
 }
