@@ -54,8 +54,8 @@ public class QuoteService {
                 campaignDiscountService.decideDiscount(plan.id(), customer, baseAmount);
         BigDecimal discountAmount = discountDecision.discountAmount();
 
-        // 3b. Ara toplam = baz - indirim
-        BigDecimal subtotal = baseAmount.subtract(discountAmount).setScale(2, RoundingMode.HALF_UP);
+        // 3b. Ara toplam = baz - indirim (sıfırın altına düşemez)
+        BigDecimal subtotal = calculateSubtotal(baseAmount, discountAmount);
 
         // 3c. Vergi ara toplam üzerinden hesaplanır
         BigDecimal taxRate = tax.rate();
@@ -97,6 +97,14 @@ public class QuoteService {
         Quote quote = quoteRepository.findByQuoteId(quoteId)
                 .orElseThrow(() -> new NotFoundException("Quote not found: " + quoteId));
         return toResponse(quote);
+    }
+
+    BigDecimal calculateSubtotal(BigDecimal baseAmount, BigDecimal discountAmount) {
+        BigDecimal subtotal = baseAmount.subtract(discountAmount).setScale(2, RoundingMode.HALF_UP);
+        if (subtotal.compareTo(BigDecimal.ZERO) < 0) {
+            return BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+        }
+        return subtotal;
     }
 
     private QuoteResponse toResponse(Quote quote) {

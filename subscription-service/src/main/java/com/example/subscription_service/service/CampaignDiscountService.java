@@ -34,6 +34,7 @@ public class CampaignDiscountService {
 
         String bestCampaignCode = null;
         BigDecimal bestDiscount = BigDecimal.ZERO;
+        Integer bestPriority = null;
 
         // 2. Her kampanya için: detayını + kurallarını çek, değerlendir
         for (PlanCampaignResponse link : planCampaigns) {
@@ -50,8 +51,15 @@ public class CampaignDiscountService {
             if (evaluation.eligible()) {
                 BigDecimal discount = calculateDiscount(campaign, baseAmount);
 
-                // 4. En yüksek indirimi seç
-                if (discount.compareTo(bestDiscount) > 0) {
+                // 4. Seçim: önce priority yüksek olan, eşitlikte indirimi yüksek olan
+                boolean isBetter =
+                        bestPriority == null
+                                || campaign.priority() > bestPriority
+                                || (campaign.priority().equals(bestPriority)
+                                && discount.compareTo(bestDiscount) > 0);
+
+                if (isBetter) {
+                    bestPriority = campaign.priority();
                     bestDiscount = discount;
                     bestCampaignCode = campaign.code();
                 }
@@ -61,7 +69,7 @@ public class CampaignDiscountService {
         return new DiscountDecision(bestCampaignCode, bestDiscount, evaluations);
     }
 
-    private BigDecimal calculateDiscount(CampaignResponse campaign, BigDecimal baseAmount) {
+    BigDecimal calculateDiscount(CampaignResponse campaign, BigDecimal baseAmount) {
         if ("PERCENTAGE".equals(campaign.discountType())) {
             return baseAmount
                     .multiply(campaign.discountValue())
