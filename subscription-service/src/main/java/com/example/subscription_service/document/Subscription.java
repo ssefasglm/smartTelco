@@ -2,6 +2,7 @@ package com.example.subscription_service.document;
 
 import com.example.subscription_service.enums.SubscriptionStatus;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
@@ -13,8 +14,13 @@ public class Subscription {
     @Id
     private String id;
 
+    @Indexed(unique = true)
     private String subscriptionId;
+
+    @Indexed(unique = true)
     private String customerId;
+
+    @Indexed(unique = true)
     private String quoteId;
 
     // --- tarife snapshot'ı ---

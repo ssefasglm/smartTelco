@@ -1,6 +1,7 @@
 package com.example.reference_service.service;
 
 import com.example.reference_service.entity.TariffPlan;
+import com.example.reference_service.exception.NotFoundException;
 import com.example.reference_service.repository.TariffPlanRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,6 @@ public class TariffPlanService {
         return repository.findAll();
     }
     public TariffPlan getPlanByCode(String code) {
-        return repository.findByCode(code)
-                .orElseThrow(() -> new RuntimeException("Plan not found: " + code));
+        return repository.findByCode(code).orElseThrow(() -> new NotFoundException("Plan not found: " + code));
     }
 }

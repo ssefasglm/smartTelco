@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AgeRangeEvaluator implements RuleEvaluator {
 
+    private static final String AGE_RANGE = "AGE_RANGE";
     @Override
     public String getRuleType() {
-        return "AGE_RANGE";
+        return AGE_RANGE;
     }
 
     @Override

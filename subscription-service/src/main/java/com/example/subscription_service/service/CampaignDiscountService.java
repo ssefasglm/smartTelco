@@ -38,13 +38,12 @@ public class CampaignDiscountService {
 
         // 2. Her kampanya için: detayını + kurallarını çek, değerlendir
         for (PlanCampaignResponse link : planCampaigns) {
-            CampaignResponse campaign =
-                    referenceServiceClient.getCampaignById(link.campaignId());
-            List<CampaignRuleResponse> rules =
-                    referenceServiceClient.getRulesByCampaignId(link.campaignId());
 
-            CampaignEligibilityResult evaluation =
-                    eligibilityService.evaluateCampaign(campaign.code(), customer, rules);
+            CampaignResponse campaign = referenceServiceClient.getCampaignById(link.campaignId());
+
+            List<CampaignRuleResponse> rules = referenceServiceClient.getRulesByCampaignId(link.campaignId());
+
+            CampaignEligibilityResult evaluation = eligibilityService.evaluateCampaign(campaign.code(), customer, rules);
             evaluations.add(evaluation);
 
             // 3. Uygunsa, bu kampanyanın indirimini hesapla

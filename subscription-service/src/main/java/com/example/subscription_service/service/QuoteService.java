@@ -85,6 +85,8 @@ public class QuoteService {
         quote.setStatus(QuoteStatus.VALID);
         quote.setCreatedAt(Instant.now());
         quote.setExpiresAt(Instant.now().plusSeconds(15 * 60));
+    //TODO: Zaman geçmişse quote statüsünü expired yap
+
 
         // 5. Mongo'ya kaydet
         Quote saved = quoteRepository.save(quote);
@@ -96,6 +98,13 @@ public class QuoteService {
     public QuoteResponse getByQuoteId(String quoteId) {
         Quote quote = quoteRepository.findByQuoteId(quoteId)
                 .orElseThrow(() -> new NotFoundException("Quote not found: " + quoteId));
+        if (quote.getStatus() == QuoteStatus.VALID && quote.getExpiresAt().isBefore(Instant.now())) {
+            quote.setStatus(QuoteStatus.EXPIRED);
+            quote = quoteRepository.save(quote);
+        }
+
+
+
         return toResponse(quote);
     }
 

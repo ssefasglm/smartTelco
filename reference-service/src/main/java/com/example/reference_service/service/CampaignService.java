@@ -1,6 +1,7 @@
 package com.example.reference_service.service;
 
 import com.example.reference_service.entity.Campaign;
+import com.example.reference_service.exception.NotFoundException;
 import com.example.reference_service.repository.CampaignRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -19,6 +20,6 @@ public class CampaignService {
     }
     public Campaign getCampaignById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Campaign not found: " + id));
+                .orElseThrow(() -> new NotFoundException("Campaign not found: " + id));
     }
 }

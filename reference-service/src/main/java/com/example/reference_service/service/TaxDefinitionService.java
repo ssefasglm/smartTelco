@@ -1,6 +1,7 @@
 package com.example.reference_service.service;
 
 import com.example.reference_service.entity.TaxDefinition;
+import com.example.reference_service.exception.NotFoundException;
 import com.example.reference_service.repository.TaxDefinitionRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,6 @@ public class TaxDefinitionService {
     }
     public TaxDefinition getCurrentTax() {
         return repository.findFirstByActiveTrue()
-                .orElseThrow(() -> new RuntimeException("No active tax definition found"));
+                .orElseThrow(() -> new NotFoundException("No active tax definition found"));
     }
 }

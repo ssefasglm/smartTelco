@@ -11,8 +11,6 @@ public class RestClientConfig {
     @Bean
     public RestClient referenceRestClient(
             @Value("${reference-service.base-url}") String baseUrl) {
-        return RestClient.builder()
-                .baseUrl(baseUrl)
-                .build();
+        return RestClient.builder().baseUrl(baseUrl).build();
     }
 }
