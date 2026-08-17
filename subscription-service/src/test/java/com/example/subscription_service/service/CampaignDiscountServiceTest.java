@@ -18,7 +18,7 @@ class CampaignDiscountServiceTest {
         // %20 indirim, 450 baz -> 90
         CampaignResponse campaign = new CampaignResponse(
                 1L, "YOUTH_20", "Gençlere", "PERCENTAGE",
-                new BigDecimal("20"), 10, false);
+                new BigDecimal("20"), 10, false, true);
 
         BigDecimal discount = service.calculateDiscount(campaign, new BigDecimal("450.00"));
 
@@ -30,7 +30,7 @@ class CampaignDiscountServiceTest {
         // 50 TL sabit indirim
         CampaignResponse campaign = new CampaignResponse(
                 2L, "LOYALTY_50", "Sadakat", "FIXED_AMOUNT",
-                new BigDecimal("50"), 5, false);
+                new BigDecimal("50"), 5, false, true);
 
         BigDecimal discount = service.calculateDiscount(campaign, new BigDecimal("450.00"));
 

@@ -6,5 +6,6 @@ public record PlanResponse(
         Long id,
         String code,
         String name,
-        BigDecimal monthlyFee
+        BigDecimal monthlyFee,
+        Boolean active
 ) { }

@@ -8,6 +8,7 @@ import com.example.subscription_service.dto.PlanResponse;
 import com.example.subscription_service.dto.QuoteResponse;
 import com.example.subscription_service.dto.TaxResponse;
 import com.example.subscription_service.enums.QuoteStatus;
+import com.example.subscription_service.exception.ConflictException;
 import com.example.subscription_service.repository.CustomerProfileRepository;
 import com.example.subscription_service.repository.QuoteRepository;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,12 @@ public class QuoteService {
 
         // 2. Tarife ve vergiyi reference'tan çek
         PlanResponse plan = referenceServiceClient.getPlanByCode(planCode);
+
+        // Pasif (satışta olmayan) tarifeye teklif verilemez
+        if (plan.active() == null || !plan.active()) {
+            throw new ConflictException("Plan is not active: " + planCode);
+        }
+
         TaxResponse tax = referenceServiceClient.getCurrentTax();
 
         // 3. Fiyat hesabı (kampanyasız — indirim yok)

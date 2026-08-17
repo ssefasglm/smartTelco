@@ -9,5 +9,6 @@ public record CampaignResponse(
         String discountType,
         BigDecimal discountValue,
         Integer priority,
-        Boolean combinable
+        Boolean combinable,
+        Boolean active
 ) { }

@@ -39,9 +39,15 @@ public class CampaignDiscountService {
         // 2. Her kampanya için: detayını + kurallarını çek, değerlendir
         for (PlanCampaignResponse link : planCampaigns) {
 
-            CampaignResponse campaign = referenceServiceClient.getCampaignById(link.campaignId());
+            CampaignResponse campaign =
+                    referenceServiceClient.getCampaignById(link.campaignId());
 
-            List<CampaignRuleResponse> rules = referenceServiceClient.getRulesByCampaignId(link.campaignId());
+            // Aktif olmayan kampanyaları atla
+            if (campaign.active() == null || !campaign.active()) {
+                continue;
+            }
+            List<CampaignRuleResponse> rules =
+                    referenceServiceClient.getRulesByCampaignId(link.campaignId());
 
             CampaignEligibilityResult evaluation = eligibilityService.evaluateCampaign(campaign.code(), customer, rules);
             evaluations.add(evaluation);
